@@ -5,6 +5,7 @@
  */
 package recursionplayground;
 
+import java.math.BigInteger;
 import java.util.Scanner;
 
 /**
@@ -14,29 +15,40 @@ import java.util.Scanner;
 public class Factorial {
 
     public static void main(String args[]) {
-        Scanner sc = new Scanner(System.in);
-
-        long fact = 0;
 
         System.out.println("");
         System.out.println(
                 "The program wil take any number, ranging from 0 to 256 and calculate its factorial value.");
-        System.out.println(
-                "Please provide a  number that fits the range parameters (0 to 256), the factorial value of which you wish to calculate: ");
         System.out.println("");
-        long number = sc.nextInt();
-        
-        fact = factorial(number);
-        System.out.println("The factorial of " + number + " is " + fact);
 
+        BigInteger fact = BigInteger.ONE;
+        Scanner sc = new Scanner(System.in);
+//        int number = sc.nextInt();
+        BigInteger number = sc.nextBigInteger();
+        fact = factorial(number);
+
+        System.out.println("The factorial of " + number + " is: " + fact + ".");
     }
 
-    private static long factorial(long n) {
-        if ((n == 0) || (n == 1)) {
-            return 1;
+    public static BigInteger factorial(BigInteger number) {
+        Scanner sc = new Scanner(System.in);
+
+        if ((number.compareTo(BigInteger.ZERO) < 0) || (number.compareTo(
+                BigInteger.valueOf(256)) > 0)) {
+            System.out.println(
+                    "Please provide a number that fits the range parameters (0 to 256), the factorial value of which you wish to calculate: ");
+            return number = sc.nextBigInteger();
+        } else if (number.equals(BigInteger.ZERO)) {
+            return BigInteger.ONE;
         } else {
-            return (n * factorial(n - 1));
+            return (number.multiply(factorial(number.subtract(BigInteger.ONE))));
         }
     }
-
 }
+
+//    private static long factorial(long n) {
+//        if ((number == 0) || (number == 1)) {
+//            return 1;
+//        } else {
+//            return (number * factorial(number - 1));
+//        }
